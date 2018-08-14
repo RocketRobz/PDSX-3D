@@ -127,7 +127,8 @@ int main()
 			}
 		}
 
-		pp2d_draw_on(GFX_BOTTOM, GFX_LEFT);
+		if (simulationRunning) pp2d_draw_on(GFX_BOTTOM, GFX_LEFT);
+		else pp2d_begin_draw(GFX_BOTTOM, GFX_LEFT);
 		const char *vc_text = "Tap the Touch Screen to go";
 		const char *vc_text2 = "to the Virtual Console menu.";
 		const int vc_width = pp2d_get_text_width(vc_text, 0.50, 0.50);
