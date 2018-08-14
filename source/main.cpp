@@ -19,7 +19,6 @@
 bool dspfirmfound = false;
 
 bool simulationRunning = true;
-bool vcBottomRendered = false;
 bool vcMenuMusicPlayed = false;
 
 // Sound effects.
@@ -128,26 +127,22 @@ int main()
 			}
 		}
 
-		if (!vcBottomRendered) {
-			pp2d_begin_draw(GFX_BOTTOM, GFX_LEFT);
-			const char *vc_text = "Tap the Touch Screen to go";
-			const char *vc_text2 = "to the Virtual Console menu.";
-			const int vc_width = pp2d_get_text_width(vc_text, 0.50, 0.50);
-			const int vc_width2 = pp2d_get_text_width(vc_text, 0.50, 0.50);
-			const int vc_x = (320-vc_width)/2;
-			const int vc_x2 = (320-vc_width2)/2;
-			pp2d_draw_text(vc_x, 120, 0.50, 0.50, WHITE, vc_text);
-			pp2d_draw_text(vc_x2, 132, 0.50, 0.50, WHITE, vc_text2);
-			const char *home_text = ": Return to HOME Menu";
-			const int home_width = pp2d_get_text_width(home_text, 0.50, 0.50) + 16;
-			const int home_x = (320-home_width)/2;
-			pp2d_draw_texture(homeicontex, home_x, 219); // Draw HOME icon
-			pp2d_draw_text(home_x+20, 220, 0.50, 0.50, WHITE, home_text);
-			//if (fadealpha > 0) pp2d_draw_rectangle(0, 0, 320, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
-			pp2d_end_draw();
-			//if (fadealpha == 255) vcBottomRendered = true;
-			vcBottomRendered = true;
-		}
+		pp2d_draw_on(GFX_BOTTOM, GFX_LEFT);
+		const char *vc_text = "Tap the Touch Screen to go";
+		const char *vc_text2 = "to the Virtual Console menu.";
+		const int vc_width = pp2d_get_text_width(vc_text, 0.50, 0.50);
+		const int vc_width2 = pp2d_get_text_width(vc_text, 0.50, 0.50);
+		const int vc_x = (320-vc_width)/2;
+		const int vc_x2 = (320-vc_width2)/2;
+		pp2d_draw_text(vc_x, 120, 0.50, 0.50, WHITE, vc_text);
+		pp2d_draw_text(vc_x2, 132, 0.50, 0.50, WHITE, vc_text2);
+		const char *home_text = ": Return to HOME Menu";
+		const int home_width = pp2d_get_text_width(home_text, 0.50, 0.50) + 16;
+		const int home_x = (320-home_width)/2;
+		pp2d_draw_texture(homeicontex, home_x, 219); // Draw HOME icon
+		pp2d_draw_text(home_x+20, 220, 0.50, 0.50, WHITE, home_text);
+		//if (fadealpha > 0) pp2d_draw_rectangle(0, 0, 320, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
+		pp2d_end_draw();
 
 		if (!simulationRunning && !vcMenuMusicPlayed) {
 			sfx_vcmenu->play();
