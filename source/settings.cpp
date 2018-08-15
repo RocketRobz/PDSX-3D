@@ -10,6 +10,10 @@ using std::wstring;
 
 static CIniFile settingsini( "sdmc:/3ds/PDSX.ini" );
 
+// 3D offsets. (0 == Left, 1 == Right)
+Offset3D offset3D[2] = {{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},	// PS model (L)
+						{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}};	// PS model (R)
+
 // Settings
 Settings_t settings;
 

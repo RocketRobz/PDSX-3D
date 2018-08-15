@@ -33,9 +33,6 @@ int modeOrder = 0;
 
 int psConsoleModel = 0;					// 0 = Playstation -> PS, 1 = PSone
 
-// 3D offsets. (0 == Left, 1 == Right)
-Offset3D offset3D[2] = {{0.0f}, {0.0f}};
-
 // Version numbers.
 char vertext[13];
 
@@ -98,10 +95,6 @@ int main()
 	
 	// Loop as long as the status is not exit
 	while(aptMainLoop()) {
-		offset3D[0].logo = CONFIG_3D_SLIDERSTATE * -5.0f;
-		offset3D[1].logo = CONFIG_3D_SLIDERSTATE * 5.0f;
-		//offset3D[0].launchertext = CONFIG_3D_SLIDERSTATE * -3.0f;
-		//offset3D[1].launchertext = CONFIG_3D_SLIDERSTATE * 3.0f;
 
 		// Scan hid shared memory for input events
 		hidScanInput();
@@ -157,14 +150,16 @@ int main()
 		}
 
 		pp2d_draw_on(GFX_BOTTOM, GFX_LEFT);
-		const char *vc_text = "Tap the Touch Screen to go";
-		const char *vc_text2 = "to the Virtual Console menu.";
-		const int vc_width = pp2d_get_text_width(vc_text, 0.50, 0.50);
-		const int vc_width2 = pp2d_get_text_width(vc_text, 0.50, 0.50);
-		const int vc_x = (320-vc_width)/2;
-		const int vc_x2 = (320-vc_width2)/2;
-		pp2d_draw_text(vc_x, 104, 0.50, 0.50, WHITE, vc_text);
-		pp2d_draw_text(vc_x2, 118, 0.50, 0.50, WHITE, vc_text2);
+		if (simulationRunning) {
+			const char *vc_text = "Tap the Touch Screen to go";
+			const char *vc_text2 = "to the Virtual Console menu.";
+			const int vc_width = pp2d_get_text_width(vc_text, 0.50, 0.50);
+			const int vc_width2 = pp2d_get_text_width(vc_text, 0.50, 0.50);
+			const int vc_x = (320-vc_width)/2;
+			const int vc_x2 = (320-vc_width2)/2;
+			pp2d_draw_text(vc_x, 104, 0.50, 0.50, WHITE, vc_text);
+			pp2d_draw_text(vc_x2, 118, 0.50, 0.50, WHITE, vc_text2);
+		}
 		const char *home_text = ": Return to HOME Menu";
 		const int home_width = pp2d_get_text_width(home_text, 0.50, 0.50) + 16;
 		const int home_x = (320-home_width)/2;

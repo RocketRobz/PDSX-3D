@@ -13,7 +13,15 @@
 
 // 3D offsets.
 typedef struct _Offset3D {
-	float logo;
+	float psModelneg1;
+	float psModel1;
+	float psModel2;
+	float psModel3;
+	float psModel4;
+	float psModel5;
+	float psModel6;
+	float psModel7;
+	float psModel8;
 } Offset3D;
 extern Offset3D offset3D[2];	// 0 == Left; 1 == Right
 
