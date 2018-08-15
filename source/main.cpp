@@ -13,6 +13,7 @@
 #include "settings.h"
 
 #include "scesplash.h"
+#include "pssplash.h"
 
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
@@ -21,11 +22,11 @@ bool dspfirmfound = false;
 bool simulationRunning = true;
 bool vcMenuMusicPlayed = false;
 
-// Sound effects.
+// Music and sound effects.
 sound *sfx_vcmenu = NULL;
 sound *sfx_vcmenuselect = NULL;
-sound *sfx_sce = NULL;
-sound *sfx_playstation = NULL;
+sound *bgm_sce = NULL;
+sound *bgm_playstation = NULL;
 
 int gameMode = 0;
 int modeOrder = 0;
@@ -84,10 +85,10 @@ int main()
 
 	// Load the sound effects if DSP is available.
 	if (dspfirmfound) {
-		sfx_vcmenu = new sound("romfs:/sounds/vcmenu.wav", 2, false);
+		sfx_vcmenu = new sound("romfs:/sounds/vcmenu.wav", 1, false);
 		sfx_vcmenuselect = new sound("romfs:/sounds/vcmenuselect.wav", 2, false);
-		sfx_sce = new sound("romfs:/sounds/sce.wav", 2, false);
-		sfx_playstation = new sound("romfs:/sounds/playstation.wav", 2, false);
+		bgm_sce = new sound("romfs:/sounds/sce.wav", 3, false);
+		bgm_playstation = new sound("romfs:/sounds/playstation.wav", 4, false);
 	}
 	
 	LoadSettings();
@@ -112,9 +113,34 @@ int main()
 			simulationRunning = !simulationRunning;
 			if (simulationRunning) {
 				sceInit();
+				psSplashInit();
+				if (modeOrder == 2) {
+					gameMode = 1;
+				} else {
+					gameMode = 0;
+				}
 			} else {
-				sfx_sce->stop();
+				bgm_sce->stop();
+				if (gameMode == 1) bgm_playstation->stop();
 				vcMenuMusicPlayed = false;
+			}
+		}
+
+		for (int topfb = GFX_LEFT; topfb <= GFX_RIGHT; topfb++) {
+			if (topfb == GFX_LEFT) pp2d_begin_draw(GFX_TOP, (gfx3dSide_t)topfb);
+			else pp2d_draw_on(GFX_TOP, (gfx3dSide_t)topfb);
+			switch (gameMode) {
+				case 0:
+				default:
+					sceGraphicDisplay(topfb);
+					break;
+				case 1:
+					psGraphicDisplay(topfb);
+					break;
+			}
+			if (settings.pseudoEmulation.border == 1) {
+				pp2d_draw_rectangle(0, 0, 40, 240, RGBA8(0, 0, 0, 255));
+				pp2d_draw_rectangle(360, 0, 40, 240, RGBA8(0, 0, 0, 255));
 			}
 		}
 
@@ -124,19 +150,21 @@ int main()
 				default:
 					sceSplash();
 					break;
+				case 1:
+					psSplash();
+					break;
 			}
 		}
 
-		if (simulationRunning) pp2d_draw_on(GFX_BOTTOM, GFX_LEFT);
-		else pp2d_begin_draw(GFX_BOTTOM, GFX_LEFT);
+		pp2d_draw_on(GFX_BOTTOM, GFX_LEFT);
 		const char *vc_text = "Tap the Touch Screen to go";
 		const char *vc_text2 = "to the Virtual Console menu.";
 		const int vc_width = pp2d_get_text_width(vc_text, 0.50, 0.50);
 		const int vc_width2 = pp2d_get_text_width(vc_text, 0.50, 0.50);
 		const int vc_x = (320-vc_width)/2;
 		const int vc_x2 = (320-vc_width2)/2;
-		pp2d_draw_text(vc_x, 120, 0.50, 0.50, WHITE, vc_text);
-		pp2d_draw_text(vc_x2, 132, 0.50, 0.50, WHITE, vc_text2);
+		pp2d_draw_text(vc_x, 104, 0.50, 0.50, WHITE, vc_text);
+		pp2d_draw_text(vc_x2, 118, 0.50, 0.50, WHITE, vc_text2);
 		const char *home_text = ": Return to HOME Menu";
 		const int home_width = pp2d_get_text_width(home_text, 0.50, 0.50) + 16;
 		const int home_x = (320-home_width)/2;
@@ -168,8 +196,8 @@ int main()
 
 	delete sfx_vcmenu;
 	delete sfx_vcmenuselect;
-	delete sfx_sce;
-	delete sfx_playstation;
+	delete bgm_sce;
+	delete bgm_playstation;
 	if (dspfirmfound) {
 		ndspExit();
 	}

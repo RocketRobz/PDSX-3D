@@ -52,9 +52,27 @@ size_t homeicontex = 1;
 size_t sceTriangleTex = 2;
 size_t sceLogoTex = 3;
 
+size_t psPTex = 4;
+size_t psSTex = 5;
+size_t psTextTex = 6;
+size_t psLicensedByTextTex = 7;
+size_t psSonyComputerEntertainmentTextTex = 8;
+size_t psSceTextTex = 9;
+
+size_t blueMenuBgTex = 10;
+
 void graphicsInit(void) {
 	pp2d_load_texture_png(homeicontex, "romfs:/graphics/vcmenu/home_icon.png");
 	
 	pp2d_load_texture_png(sceTriangleTex, "romfs:/graphics/sce/triangle.png");
 	pp2d_load_texture_png(sceLogoTex, "romfs:/graphics/sce/logo (OG PS1).png");
+
+	pp2d_load_texture_png(psPTex, "romfs:/graphics/playstation/P.png");
+	pp2d_load_texture_png(psSTex, "romfs:/graphics/playstation/S.png");
+	pp2d_load_texture_png(psTextTex, "romfs:/graphics/playstation/text.png");
+	pp2d_load_texture_png(psLicensedByTextTex, "romfs:/graphics/playstation/text_licensedby.png");
+	pp2d_load_texture_png(psSonyComputerEntertainmentTextTex, "romfs:/graphics/playstation/text_sonyComputerEntertainment.png");
+	pp2d_load_texture_png(psSceTextTex, "romfs:/graphics/playstation/text_sce.png");
+
+	pp2d_load_texture_png(blueMenuBgTex, "romfs:/graphics/mainmenu/bg_blue.png");
 }

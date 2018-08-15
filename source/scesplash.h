@@ -3,6 +3,7 @@
 
 extern void sceInit(void);
 extern void sceSplash(void);
+extern void sceGraphicDisplay(int topfb);
 
 #endif // _SCE_H_
 

@@ -10,6 +10,15 @@ extern size_t homeicontex;
 extern size_t sceTriangleTex;
 extern size_t sceLogoTex;
 
+extern size_t psPTex;
+extern size_t psSTex;
+extern size_t psTextTex;
+extern size_t psLicensedByTextTex;
+extern size_t psSonyComputerEntertainmentTextTex;
+extern size_t psSceTextTex;
+
+extern size_t blueMenuBgTex;
+
 extern void graphicsInit(void);
 
 // Colors
