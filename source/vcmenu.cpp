@@ -55,8 +55,6 @@ void vcMenu(void) {
 			case 0:
 			default:
 				simulationRunning = true;
-				ndspChnSetPaused(3, false);		// Unpause SCE logo sound
-				ndspChnSetPaused(4, false);		// Unpause Playstation logo sound
 				break;
 			case 1:
 				bgm_sce->stop();
@@ -69,8 +67,6 @@ void vcMenu(void) {
 					gameMode = 0;
 				}
 				simulationRunning = true;
-				ndspChnSetPaused(3, false);
-				ndspChnSetPaused(4, false);
 				vcMenu_cursorPosition = 0;
 				break;
 		}
@@ -78,8 +74,6 @@ void vcMenu(void) {
 
 	if (hDown & KEY_B) {
 		simulationRunning = true;
-		ndspChnSetPaused(3, false);		// Unpause SCE logo sound
-		ndspChnSetPaused(4, false);		// Unpause Playstation logo sound
 	}
 }
 

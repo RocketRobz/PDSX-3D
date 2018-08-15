@@ -94,6 +94,7 @@ int main()
 	
 	LoadSettings();
 
+	int topFadeAlpha = 0;
 	int fadealpha = 255;
 	bool fadein = true;
 	
@@ -106,7 +107,8 @@ int main()
 		hDown = hidKeysDown();
 		hHeld = hidKeysHeld();
 
-		if (fadealpha == 0 && simulationRunning && (hDown & KEY_TOUCH)) {
+		if (fadealpha == 0 && topFadeAlpha == 0
+		&& simulationRunning && (hDown & KEY_TOUCH)) {
 			simulationRunning = false;
 			ndspChnSetPaused(3, true);			// Pause SCE logo sound
 			ndspChnSetPaused(4, true);			// Pause Playstation logo sound
@@ -125,13 +127,14 @@ int main()
 					psGraphicDisplay(topfb);
 					break;
 			}
+			if (topFadeAlpha > 0) pp2d_draw_rectangle(0, 0, 400, 240, RGBA8(0, 0, 0, topFadeAlpha)); // Fade in/out effect
 			if (settings.pseudoEmulation.border == 1) {
 				pp2d_draw_rectangle(0, 0, 40, 240, RGBA8(0, 0, 0, 255));
 				pp2d_draw_rectangle(360, 0, 40, 240, RGBA8(0, 0, 0, 255));
 			}
 		}
 
-		if (fadealpha == 0 && simulationRunning) {
+		if (fadealpha == 0 && topFadeAlpha == 0 && simulationRunning) {
 			switch (gameMode) {
 				case 0:
 				default:
@@ -155,7 +158,7 @@ int main()
 			const int vc_x2 = (320-vc_width2)/2;
 			pp2d_draw_text(vc_x, 104, 0.50, 0.50, WHITE, vc_text);
 			pp2d_draw_text(vc_x2, 118, 0.50, 0.50, WHITE, vc_text2);
-		} else {
+		} else if (topFadeAlpha == 191) {
 			vcMenuGraphicDisplay();
 		}
 		const char *home_text = ": Return to HOME Menu";
@@ -167,7 +170,18 @@ int main()
 		pp2d_end_draw();
 
 		if (!simulationRunning) {
-			vcMenu();
+			topFadeAlpha += 10;
+			if (topFadeAlpha >= 191) {
+				topFadeAlpha = 191;
+				vcMenu();
+			}
+		} else {
+			topFadeAlpha -= 10;
+			if (topFadeAlpha <= 0) {
+				if (ndspChnIsPaused(3)) ndspChnSetPaused(3, false);		// Unpause SCE logo sound
+				if (ndspChnIsPaused(4)) ndspChnSetPaused(4, false);		// Unpause Playstation logo sound
+				topFadeAlpha = 0;
+			}
 		}
 
 		if (!simulationRunning && !vcMenuMusicPlayed) {
