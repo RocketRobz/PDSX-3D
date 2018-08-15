@@ -38,7 +38,7 @@ u32 hDown;
 u32 hHeld;
 
 // Version numbers.
-char vertext[13];
+char vertext[24];
 
 int main()
 {
@@ -49,7 +49,7 @@ int main()
 	srvInit();
 	hidInit();
 
-	snprintf(vertext, 13, "PDSX 3D v%d.%d.%d by Robz8", VERSION_MAJOR, VERSION_MINOR, VERSION_MICRO);
+	snprintf(vertext, 24, "PDSX 3D v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_MICRO);
 
 	// make folders if they don't exist
 	mkdir("sdmc:/3ds", 0777);	// For DSP dump
@@ -106,7 +106,7 @@ int main()
 		hDown = hidKeysDown();
 		hHeld = hidKeysHeld();
 
-		if (simulationRunning && (hDown & KEY_TOUCH)) {
+		if (fadealpha == 0 && simulationRunning && (hDown & KEY_TOUCH)) {
 			simulationRunning = false;
 			ndspChnSetPaused(3, true);			// Pause SCE logo sound
 			ndspChnSetPaused(4, true);			// Pause Playstation logo sound
@@ -131,7 +131,7 @@ int main()
 			}
 		}
 
-		if (simulationRunning) {
+		if (fadealpha == 0 && simulationRunning) {
 			switch (gameMode) {
 				case 0:
 				default:
@@ -163,7 +163,7 @@ int main()
 		const int home_x = (320-home_width)/2;
 		pp2d_draw_texture(homeiconTex, home_x, 219); // Draw HOME icon
 		pp2d_draw_text(home_x+20, 220, 0.50, 0.50, WHITE, home_text);
-		//if (fadealpha > 0) pp2d_draw_rectangle(0, 0, 320, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
+		if (fadealpha > 0) pp2d_draw_rectangle(0, 0, 320, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
 		pp2d_end_draw();
 
 		if (!simulationRunning) {
@@ -176,7 +176,7 @@ int main()
 		}
 
 		if (fadein == true) {
-			fadealpha -= 15;
+			fadealpha -= 5;
 			if (fadealpha < 0) {
 				fadealpha = 0;
 				fadein = false;

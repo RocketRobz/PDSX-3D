@@ -23,6 +23,8 @@ extern sound *bgm_playstation;
 extern u32 hDown;
 extern u32 hHeld;
 
+extern char vertext[24];
+
 static int vcMenu_screen = 0;
 
 static int vcMenu_cursorPosition = 0;
@@ -82,6 +84,9 @@ void vcMenu(void) {
 }
 
 void vcMenuGraphicDisplay(void) {
+	pp2d_draw_text(8, 8, 0.50, 0.50, WHITE, vertext);
+	pp2d_draw_text(8, 24, 0.50, 0.50, WHITE, "by Robz8");
+
 	pp2d_draw_rectangle(0, 88+(vcMenu_cursorPosition*32), 400, 32, RGBA8(255, 0, 0, 127));
 
 	vcMenu_width = pp2d_get_text_width(vcMenu_resume, 0.75, 0.75);
