@@ -14,6 +14,7 @@
 
 #include "scesplash.h"
 #include "pssplash.h"
+#include "vcmenu.h"
 
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
@@ -32,6 +33,9 @@ int gameMode = 0;
 int modeOrder = 0;
 
 int psConsoleModel = 0;					// 0 = Playstation -> PS, 1 = PSone
+
+u32 hDown;
+u32 hHeld;
 
 // Version numbers.
 char vertext[13];
@@ -99,24 +103,14 @@ int main()
 		// Scan hid shared memory for input events
 		hidScanInput();
 		
-		const u32 hDown = hidKeysDown();
-		const u32 hHeld = hidKeysHeld();
+		hDown = hidKeysDown();
+		hHeld = hidKeysHeld();
 
-		if (hDown & KEY_TOUCH) {
-			simulationRunning = !simulationRunning;
-			if (simulationRunning) {
-				sceInit();
-				psSplashInit();
-				if (modeOrder == 2) {
-					gameMode = 1;
-				} else {
-					gameMode = 0;
-				}
-			} else {
-				bgm_sce->stop();
-				if (gameMode == 1) bgm_playstation->stop();
-				vcMenuMusicPlayed = false;
-			}
+		if (simulationRunning && (hDown & KEY_TOUCH)) {
+			simulationRunning = false;
+			ndspChnSetPaused(3, true);			// Pause SCE logo sound
+			ndspChnSetPaused(4, true);			// Pause Playstation logo sound
+			vcMenuMusicPlayed = false;
 		}
 
 		for (int topfb = GFX_LEFT; topfb <= GFX_RIGHT; topfb++) {
@@ -150,6 +144,8 @@ int main()
 		}
 
 		pp2d_draw_on(GFX_BOTTOM, GFX_LEFT);
+		pp2d_draw_texture(vcMenuBgTex, 0, 0);
+		pp2d_draw_texture_flip(vcMenuBgTex, 160, 0, HORIZONTAL);
 		if (simulationRunning) {
 			const char *vc_text = "Tap the Touch Screen to go";
 			const char *vc_text2 = "to the Virtual Console menu.";
@@ -159,14 +155,20 @@ int main()
 			const int vc_x2 = (320-vc_width2)/2;
 			pp2d_draw_text(vc_x, 104, 0.50, 0.50, WHITE, vc_text);
 			pp2d_draw_text(vc_x2, 118, 0.50, 0.50, WHITE, vc_text2);
+		} else {
+			vcMenuGraphicDisplay();
 		}
 		const char *home_text = ": Return to HOME Menu";
 		const int home_width = pp2d_get_text_width(home_text, 0.50, 0.50) + 16;
 		const int home_x = (320-home_width)/2;
-		pp2d_draw_texture(homeicontex, home_x, 219); // Draw HOME icon
+		pp2d_draw_texture(homeiconTex, home_x, 219); // Draw HOME icon
 		pp2d_draw_text(home_x+20, 220, 0.50, 0.50, WHITE, home_text);
 		//if (fadealpha > 0) pp2d_draw_rectangle(0, 0, 320, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
 		pp2d_end_draw();
+
+		if (!simulationRunning) {
+			vcMenu();
+		}
 
 		if (!simulationRunning && !vcMenuMusicPlayed) {
 			sfx_vcmenu->play();

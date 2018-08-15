@@ -47,22 +47,26 @@ void pp2d_draw_texture_rotate_flip_blend(size_t id, int x, int y, float angle, f
 	pp2d_texture_draw();
 }
 
-size_t homeicontex = 1;
+size_t homeiconTex = 1;
+size_t vcMenuBgTex = 2;
+size_t vcMenuBubbleTex = 3;
 
-size_t sceTriangleTex = 2;
-size_t sceLogoTex = 3;
+size_t sceTriangleTex = 4;
+size_t sceLogoTex = 5;
 
-size_t psPTex = 4;
-size_t psSTex = 5;
-size_t psTextTex = 6;
-size_t psLicensedByTextTex = 7;
-size_t psSonyComputerEntertainmentTextTex = 8;
-size_t psSceTextTex = 9;
+size_t psPTex = 6;
+size_t psSTex = 7;
+size_t psTextTex = 8;
+size_t psLicensedByTextTex = 9;
+size_t psSonyComputerEntertainmentTextTex = 10;
+size_t psSceTextTex = 11;
 
-size_t blueMenuBgTex = 10;
+size_t blueMenuBgTex = 12;
 
 void graphicsInit(void) {
-	pp2d_load_texture_png(homeicontex, "romfs:/graphics/vcmenu/home_icon.png");
+	pp2d_load_texture_png(homeiconTex, "romfs:/graphics/vcmenu/home_icon.png");
+	pp2d_load_texture_png(vcMenuBgTex, "romfs:/graphics/vcmenu/bg.png");
+	pp2d_load_texture_png(vcMenuBubbleTex, "romfs:/graphics/vcmenu/Bubble 1.png");
 	
 	pp2d_load_texture_png(sceTriangleTex, "romfs:/graphics/sce/triangle.png");
 	pp2d_load_texture_png(sceLogoTex, "romfs:/graphics/sce/logo (OG PS1).png");
