@@ -13,6 +13,9 @@
 extern bool simulationRunning;
 
 extern int gameMode;
+extern int gameModeBuffer;
+
+extern int blackScreenDelay;
 
 extern int psConsoleModel;					// 0 = Playstation -> PS, 1 = PSone
 
@@ -66,10 +69,12 @@ void vcMenu(void) {
 					psSplashInit();
 					ogPsMenuInit();
 					if (settings.pseudoEmulation.modeOrder == 2) {
-						gameMode = 1;
+						gameModeBuffer = 1;
 					} else {
-						gameMode = 0;
+						gameModeBuffer = 0;
 					}
+					blackScreenDelay = 0;
+					gameMode = -1;
 					simulationRunning = true;
 					vcMenu_cursorPosition[0] = 0;
 					break;

@@ -30,7 +30,10 @@ sound *sfx_vcmenuselect = NULL;
 sound *bgm_sce = NULL;
 sound *bgm_playstation = NULL;
 
-int gameMode = 0;
+int gameMode = -1;
+int gameModeBuffer = 0;
+
+int blackScreenDelay = 0;
 
 int psConsoleModel = 0;					// 0 = Playstation -> PS, 1 = PSone
 
@@ -95,9 +98,9 @@ int main()
 	LoadSettings();
 
 	if (settings.pseudoEmulation.modeOrder == 2) {
-		gameMode = 1;
+		gameModeBuffer = 1;
 	} else {
-		gameMode = 0;
+		gameModeBuffer = 0;
 	}
 
 	int topFadeAlpha = 0;
@@ -148,6 +151,12 @@ int main()
 
 		if (fadealpha == 0 && topFadeAlpha == 0 && simulationRunning) {
 			switch (gameMode) {
+				case -1:
+					blackScreenDelay++;
+					if (blackScreenDelay == 60) {
+						gameMode = gameModeBuffer;
+					}
+					break;
 				case 0:
 				default:
 					sceSplash();
