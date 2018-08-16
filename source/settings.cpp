@@ -18,14 +18,14 @@ Offset3D offset3D[2] = {{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},	
 Settings_t settings;
 
 void LoadSettings(void) {
-	// UI settings.
 	settings.pseudoEmulation.border = settingsini.GetInt("SETTINGS", "BORDER", 1);
+	settings.pseudoEmulation.modeOrder = settingsini.GetInt("SETTINGS", "SCREEN_ORDER", 0);
 }
 
 /**
  * Save settings.
  */
 void SaveSettings(void) {
-	// UI settings.
-	//settingsini.SetInt("SETTINGS", "BORDER", settings.pseudoEmulation.border);
+	settingsini.SetInt("SETTINGS", "BORDER", settings.pseudoEmulation.border);
+	settingsini.SetInt("SETTINGS", "SCREEN_ORDER", settings.pseudoEmulation.modeOrder);
 }

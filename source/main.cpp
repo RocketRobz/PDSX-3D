@@ -30,7 +30,6 @@ sound *bgm_sce = NULL;
 sound *bgm_playstation = NULL;
 
 int gameMode = 0;
-int modeOrder = 0;
 
 int psConsoleModel = 0;					// 0 = Playstation -> PS, 1 = PSone
 
@@ -94,6 +93,12 @@ int main()
 	
 	LoadSettings();
 
+	if (settings.pseudoEmulation.modeOrder == 2) {
+		gameMode = 1;
+	} else {
+		gameMode = 0;
+	}
+
 	int topFadeAlpha = 0;
 	int fadealpha = 255;
 	bool fadein = true;
@@ -131,6 +136,9 @@ int main()
 			if (settings.pseudoEmulation.border == 1) {
 				pp2d_draw_rectangle(0, 0, 40, 240, RGBA8(0, 0, 0, 255));
 				pp2d_draw_rectangle(360, 0, 40, 240, RGBA8(0, 0, 0, 255));
+			} else if (settings.pseudoEmulation.border == 2) {
+				pp2d_draw_texture(psoneBorderTex, 0, 0);
+				pp2d_draw_texture_flip(psoneBorderTex, 360, 0, HORIZONTAL);
 			}
 		}
 

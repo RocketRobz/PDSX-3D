@@ -8,7 +8,6 @@
 
 
 extern int gameMode;
-extern int modeOrder;
 
 extern int psConsoleModel;					// 0 = Playstation -> PS, 1 = PSone
 
@@ -79,7 +78,7 @@ void sceSplash(void) {
 		}
 	} else if (sce_loopOnLogo >= 60*6) {
 		sce_fadedin = false;
-		if (modeOrder == 1) {
+		if (settings.pseudoEmulation.modeOrder == 1) {
 			gameMode = 2;	// Go to Main Menu
 		} else {
 			sce_bgColor -= 10;
