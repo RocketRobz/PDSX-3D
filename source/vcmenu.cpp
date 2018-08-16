@@ -115,19 +115,19 @@ void vcMenuGraphicDisplay(void) {
 	pp2d_draw_text(8, 24, 0.50, 0.50, WHITE, "by Robz8");
 
 	if (vcMenu_screen == 0) {
-		pp2d_draw_rectangle(0, 88+(vcMenu_cursorPosition[0]*32), 400, 32, RGBA8(255, 0, 0, 127));
+		pp2d_draw_rectangle(0, 80+(vcMenu_cursorPosition[0]*32), 400, 32, RGBA8(255, 0, 0, 127));
 
 		vcMenu_width = pp2d_get_text_width(vcMenu_resume, 0.75, 0.75);
 		vcMenu_x = (320-vcMenu_width)/2;
-		pp2d_draw_text(vcMenu_x, 92, 0.75, 0.75, WHITE, vcMenu_resume);
+		pp2d_draw_text(vcMenu_x, 84, 0.75, 0.75, WHITE, vcMenu_resume);
 
 		vcMenu_width = pp2d_get_text_width(vcMenu_restart, 0.75, 0.75);
 		vcMenu_x = (320-vcMenu_width)/2;
-		pp2d_draw_text(vcMenu_x, 124, 0.75, 0.75, WHITE, vcMenu_restart);
+		pp2d_draw_text(vcMenu_x, 116, 0.75, 0.75, WHITE, vcMenu_restart);
 
 		vcMenu_width = pp2d_get_text_width(vcMenu_settings, 0.75, 0.75);
 		vcMenu_x = (320-vcMenu_width)/2;
-		pp2d_draw_text(vcMenu_x, 156, 0.75, 0.75, WHITE, vcMenu_settings);
+		pp2d_draw_text(vcMenu_x, 148, 0.75, 0.75, WHITE, vcMenu_settings);
 	} else if (vcMenu_screen == 1) {
 		pp2d_draw_rectangle(0, 88+(vcMenu_cursorPosition[1]*32), 400, 32, RGBA8(255, 0, 0, 127));
 
