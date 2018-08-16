@@ -63,6 +63,7 @@ size_t psSonyComputerEntertainmentTextTex = 11;
 size_t psSceTextTex = 12;
 
 size_t blueMenuBgTex = 13;
+size_t blueMainMenuTextTex = 14;
 
 void graphicsInit(void) {
 	pp2d_load_texture_png(homeiconTex, "romfs:/graphics/vcmenu/home_icon.png");
@@ -81,4 +82,5 @@ void graphicsInit(void) {
 	pp2d_load_texture_png(psSceTextTex, "romfs:/graphics/playstation/text_sce.png");
 
 	pp2d_load_texture_png(blueMenuBgTex, "romfs:/graphics/mainmenu/bg_blue.png");
+	pp2d_load_texture_png(blueMainMenuTextTex, "romfs:/graphics/mainmenu/text_mainmenu.png");
 }

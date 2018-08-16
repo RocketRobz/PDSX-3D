@@ -14,6 +14,7 @@
 
 #include "scesplash.h"
 #include "pssplash.h"
+#include "ogpsmenu.h"
 #include "vcmenu.h"
 
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
@@ -131,6 +132,9 @@ int main()
 				case 1:
 					psGraphicDisplay(topfb);
 					break;
+				case 2:
+					ogPsMenuGraphicDisplay(topfb);
+					break;
 			}
 			if (topFadeAlpha > 0) pp2d_draw_rectangle(0, 0, 400, 240, RGBA8(0, 0, 0, topFadeAlpha)); // Fade in/out effect
 			if (settings.pseudoEmulation.border == 1) {
@@ -150,6 +154,9 @@ int main()
 					break;
 				case 1:
 					psSplash();
+					break;
+				case 2:
+					ogPsMenu();
 					break;
 			}
 		}

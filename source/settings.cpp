@@ -11,8 +11,7 @@ using std::wstring;
 static CIniFile settingsini( "sdmc:/3ds/PDSX.ini" );
 
 // 3D offsets. (0 == Left, 1 == Right)
-Offset3D offset3D[2] = {{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f},	// PS model (L)
-						{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}};	// PS model (R)
+Offset3D offset3D[2] = {{0.0f}, {0.0f}};
 
 // Settings
 Settings_t settings;
@@ -28,4 +27,5 @@ void LoadSettings(void) {
 void SaveSettings(void) {
 	settingsini.SetInt("SETTINGS", "BORDER", settings.pseudoEmulation.border);
 	settingsini.SetInt("SETTINGS", "SCREEN_ORDER", settings.pseudoEmulation.modeOrder);
+	settingsini.SaveIniFile("sdmc:/3ds/PDSX.ini");
 }

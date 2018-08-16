@@ -21,6 +21,7 @@ extern size_t psSonyComputerEntertainmentTextTex;
 extern size_t psSceTextTex;
 
 extern size_t blueMenuBgTex;
+extern size_t blueMainMenuTextTex;
 
 extern void graphicsInit(void);
 

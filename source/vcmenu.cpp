@@ -7,6 +7,7 @@
 #include "vcmenu.h"
 #include "scesplash.h"
 #include "pssplash.h"
+#include "ogpsmenu.h"
 
 
 extern bool simulationRunning;
@@ -63,6 +64,7 @@ void vcMenu(void) {
 					bgm_playstation->stop();
 					sceInit();
 					psSplashInit();
+					ogPsMenuInit();
 					if (settings.pseudoEmulation.modeOrder == 2) {
 						gameMode = 1;
 					} else {

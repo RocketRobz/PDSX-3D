@@ -6,6 +6,8 @@
 
 #include "scesplash.h"
 
+#define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
+
 
 extern int gameMode;
 
@@ -25,6 +27,8 @@ static int sce_triangle2_x = 40+160;
 static int sce_triangle2_y = 57;
 
 static float sce_triangle_scale = 1.00;
+
+static float sce_triangle_depth = 0.0f;
 
 static int sce_triangle_zoomdelay[4] = {0};
 static bool sce_triangle_zoomdelay2AddDelay = false;
@@ -47,6 +51,8 @@ void sceInit(void) {
 	sce_triangle2_y = 57;
 
 	sce_triangle_scale = 1.00;
+	
+	sce_triangle_depth = 0.0f;
 
 	sce_triangle_zoomdelay[0] = 0;
 	sce_triangle_zoomdelay[1] = 0;
@@ -130,6 +136,7 @@ void sceSplash(void) {
 
 			if (sce_triangle2_y != 117) {
 				sce_triangle2_y++;
+				sce_triangle_depth += 0.2;
 			}
 		}
 
@@ -141,14 +148,18 @@ void sceSplash(void) {
 void sceGraphicDisplay(int topfb) {
 	pp2d_draw_rectangle(0, 0, 400, 240, RGBA8(sce_bgColor, sce_bgColor, sce_bgColor, 255)); // Fade in/out effect
 	if (sce_fadedin) {
+		offset3D[0].level = CONFIG_3D_SLIDERSTATE * -sce_triangle_depth;
+		offset3D[1].level = CONFIG_3D_SLIDERSTATE * sce_triangle_depth;
 		pp2d_draw_texture(sceTriangleTex, 40+97, 57);
 		pp2d_draw_texture_flip(sceTriangleTex, 40+160, 57, HORIZONTAL);
-		pp2d_draw_texture_scale_flip(sceTriangleTex, sce_triangle2_x, sce_triangle2_y, sce_triangle_scale, sce_triangle_scale, HORIZONTAL);
-		pp2d_draw_texture_scale(sceTriangleTex, sce_triangle1_x, sce_triangle1_y, sce_triangle_scale, sce_triangle_scale);
+		pp2d_draw_texture_scale_flip(sceTriangleTex, offset3D[topfb].level+sce_triangle2_x, sce_triangle2_y, sce_triangle_scale, sce_triangle_scale, HORIZONTAL);
+		pp2d_draw_texture_scale(sceTriangleTex, offset3D[topfb].level+sce_triangle1_x, sce_triangle1_y, sce_triangle_scale, sce_triangle_scale);
 		if (sce_trianglesFormed) {
-			pp2d_draw_texture_part(sceLogoTex, 40+100, 29, 0, 0, 120, 24);		// Sony
-			pp2d_draw_texture_part(sceLogoTex, 40+100, 193, 0, 24, 120, 28);	// Computer Entertainment
-			pp2d_draw_texture_part(sceLogoTex, 40+170, 180, 0, 52, 12, 8);		// TM
+			offset3D[0].level = CONFIG_3D_SLIDERSTATE * -1.0f;
+			offset3D[1].level = CONFIG_3D_SLIDERSTATE * 1.0f;
+			pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+100, 29, 0, 0, 120, 24);		// Sony
+			pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+100, 193, 0, 24, 120, 28);	// Computer Entertainment
+			pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+170, 180, 0, 52, 12, 8);		// TM
 		}
 	}
 }
