@@ -9,7 +9,7 @@
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
 
-extern int psConsoleModel;					// 0 = Playstation -> PS, 1 = PSone
+extern int psConsoleModel;					// 0 = Playstation (SCPH1001) -> PS, 1 = PSone (SCPH101)
 
 extern sound *bgm_playstation;
 
@@ -87,7 +87,11 @@ void psGraphicDisplay(int topfb) {
 	offset3D[1].level = CONFIG_3D_SLIDERSTATE * -0.5f;
 	pp2d_draw_texture_part(psPTex, 40+offset3D[topfb].level+147+9+28, 33, 37, 0, 19, 98);
 
-	pp2d_draw_texture_blend(psTextTex, 40+115, 136, RGBA8(255, 255, 255, ps_textFadeAlpha));
+	if (psConsoleModel == 1) {
+		pp2d_draw_texture_part_blend(psTextTex, 40+114, 136, 0, 20, 104, 20, RGBA8(255, 255, 255, ps_textFadeAlpha));
+	} else {
+		pp2d_draw_texture_part_blend(psTextTex, 40+115, 136, 0, 0, 104, 20, RGBA8(255, 255, 255, ps_textFadeAlpha));
+	}
 	if (ps_logoFadeAlpha == 0) {
 		offset3D[0].level = CONFIG_3D_SLIDERSTATE * -2.0f;
 		offset3D[1].level = CONFIG_3D_SLIDERSTATE * 2.0f;
