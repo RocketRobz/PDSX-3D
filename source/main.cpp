@@ -104,6 +104,8 @@ int main()
 	} else {
 		gameModeBuffer = 0;
 	}
+	
+	psConsoleModel = settings.pseudoEmulation.bios;
 
 	int fadealpha = 255;
 	bool fadein = true;

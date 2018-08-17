@@ -78,7 +78,7 @@ void graphicsInit(void) {
 	pp2d_load_texture_png(psoneBorderTex, "romfs:/graphics/psone border.png");
 	
 	pp2d_load_texture_png(sceTriangleTex, "romfs:/graphics/sce/triangle.png");
-	pp2d_load_texture_png(sceLogoTex, "romfs:/graphics/sce/logo (OG PS1).png");
+	pp2d_load_texture_png(sceLogoTex, "romfs:/graphics/sce/logo.png");
 
 	pp2d_load_texture_png(psPTex, "romfs:/graphics/playstation/P.png");
 	pp2d_load_texture_png(psSTex, "romfs:/graphics/playstation/S.png");

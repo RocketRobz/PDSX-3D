@@ -11,7 +11,7 @@
 
 extern int gameMode;
 
-extern int psConsoleModel;					// 0 = Playstation -> PS, 1 = PSone
+extern int psConsoleModel;					// 0 = Playstation (SCPH1001) -> PS, 1 = PSone (SCPH101)
 
 extern sound *bgm_sce;
 
@@ -20,6 +20,7 @@ static int sce_fadeTime[2] = {0};
 static bool sce_fadedin = false;
 
 static int sce_bgColor = 0;	// 185 when faded in
+static int sce_textFadeAlpha = 255;	// 0 when faded in
 
 static int sce_triangle1_x = 40+97;
 static int sce_triangle1_y = 57;
@@ -44,6 +45,7 @@ void sceInit(void) {
 	sce_fadedin = false;
 
 	sce_bgColor = 0;	// 185 when faded in
+	sce_textFadeAlpha = 255;	// 0 when faded in
 
 	sce_triangle1_x = 40+97;
 	sce_triangle1_y = 57;
@@ -139,6 +141,11 @@ void sceSplash(void) {
 				sce_triangle_depth += 0.2;
 			}
 		}
+		
+		if (sce_trianglesFormed) {
+			sce_textFadeAlpha -= 15;
+			if (sce_textFadeAlpha <= 0) sce_textFadeAlpha = 0;
+		}
 
 	}
 
@@ -157,9 +164,16 @@ void sceGraphicDisplay(int topfb) {
 		if (sce_trianglesFormed) {
 			offset3D[0].level = CONFIG_3D_SLIDERSTATE * -1.0f;
 			offset3D[1].level = CONFIG_3D_SLIDERSTATE * 1.0f;
-			pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+100, 29, 0, 0, 120, 24);		// Sony
-			pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+100, 193, 0, 24, 120, 28);	// Computer Entertainment
-			pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+170, 180, 0, 52, 12, 8);		// TM
+			if (psConsoleModel == 1) {
+				pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+110, 32, 0, 60, 100, 19);		// Sony
+				pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+110, 188, 0, 80, 114, 23);	// Computer Entertainment (R)
+				pp2d_draw_rectangle(40+offset3D[topfb].level+110, 32, 100, 19, RGBA8(sce_bgColor, sce_bgColor, sce_bgColor, sce_textFadeAlpha));
+				pp2d_draw_rectangle(40+offset3D[topfb].level+110, 188, 114, 23, RGBA8(sce_bgColor, sce_bgColor, sce_bgColor, sce_textFadeAlpha));
+			} else {
+				pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+100, 29, 0, 0, 120, 24);		// Sony
+				pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+100, 193, 0, 24, 120, 28);	// Computer Entertainment
+				pp2d_draw_texture_part(sceLogoTex, 40+offset3D[topfb].level+170, 180, 0, 52, 12, 8);		// TM
+			}
 		}
 	}
 }
