@@ -72,26 +72,39 @@ void ogPsMenu(void) {
 void ogPsMenuGraphicDisplay(int topfb) {
 	pp2d_draw_rectangle(0, 0, 400, 240, RGBA8(0, 0, 33, 255));
 
-	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -6.0f;
-	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 6.0f;
+	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -7.0f;
+	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 7.0f;
 	pp2d_draw_texture_part(blueMenuBgTex, 40+offset3D[topfb].level, 0, 0, 0, 320, 34);
 	pp2d_draw_texture_part(blueMenuBgTex, 40+offset3D[topfb].level, 34*6, 0, 34*6, 320, 36);
 
-	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -5.0f;
-	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 5.0f;
+	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -6.0f;
+	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 6.0f;
 	pp2d_draw_texture_part(blueMenuBgTex, 40+offset3D[topfb].level, 34, 0, 34, 320, 34);
 	pp2d_draw_texture_part(blueMenuBgTex, 40+offset3D[topfb].level, 34*5, 0, 34*5, 320, 34);
 
-	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -4.0f;
-	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 4.0f;
+	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -5.0f;
+	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 5.0f;
 	pp2d_draw_texture_part(blueMenuBgTex, 40+offset3D[topfb].level, 34*2, 0, 34*2, 320, 34);
 	pp2d_draw_texture_part(blueMenuBgTex, 40+offset3D[topfb].level, 34*4, 0, 34*4, 320, 34);
 
-	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -3.0f;
-	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 3.0f;
+	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -4.0f;
+	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 4.0f;
 	pp2d_draw_texture_part(blueMenuBgTex, 40+offset3D[topfb].level, 34*3, 0, 34*3, 320, 34);
 
 	if (displayMenuGraphics) {
+		offset3D[0].level = CONFIG_3D_SLIDERSTATE * -4.0f;
+		offset3D[1].level = CONFIG_3D_SLIDERSTATE * 4.0f;
+		pp2d_draw_texture_part(blueOrbsTex, 40+offset3D[topfb].level+120, 160, 0, 0, 60, 60);
+
+		offset3D[0].level = CONFIG_3D_SLIDERSTATE * -3.0f;
+		offset3D[1].level = CONFIG_3D_SLIDERSTATE * 3.0f;
+		pp2d_draw_texture_part(blueOrbsTex, 40+offset3D[topfb].level+48, 7, 0, 60, 53, 53);
+		pp2d_draw_texture_part(blueOrbsTex, 40+offset3D[topfb].level+104, 164, 0, 153, 30, 30);
+
+		offset3D[0].level = CONFIG_3D_SLIDERSTATE * -2.0f;
+		offset3D[1].level = CONFIG_3D_SLIDERSTATE * 2.0f;
+		pp2d_draw_texture_part(blueOrbsTex, 40+offset3D[topfb].level+87, 33, 0, 113, 40, 40);
+
 		offset3D[0].level = CONFIG_3D_SLIDERSTATE * -1.0f;
 		offset3D[1].level = CONFIG_3D_SLIDERSTATE * 1.0f;
 		pp2d_draw_texture(blueMainMenuTextTex, 40+offset3D[topfb].level+226, 22);
