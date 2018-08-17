@@ -68,7 +68,8 @@ size_t blueOrbsTex = 20;
 size_t inkedButtonTex = 21;
 size_t memCardCdTextTex = 22;
 size_t gridBgTex = 23;
-size_t cursorTex = 24;
+size_t memCardCdIconsTex = 24;
+size_t cursorTex = 25;
 
 void graphicsInit(void) {
 	pp2d_load_texture_png(homeiconTex, "romfs:/graphics/vcmenu/home_icon.png");
@@ -93,5 +94,6 @@ void graphicsInit(void) {
 	pp2d_load_texture_png(inkedButtonTex, "romfs:/graphics/mainmenu/inkedbutton.png");
 	pp2d_load_texture_png(memCardCdTextTex, "romfs:/graphics/mainmenu/menutext.png");
 	pp2d_load_texture_png(gridBgTex, "romfs:/graphics/mainmenu/bg_grid.png");
+	pp2d_load_texture_png(memCardCdIconsTex, "romfs:/graphics/mainmenu/menuicons.png");
 	pp2d_load_texture_png(cursorTex, "romfs:/graphics/mainmenu/cursor.png");
 }

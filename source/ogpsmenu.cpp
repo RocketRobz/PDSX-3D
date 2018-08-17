@@ -136,9 +136,9 @@ void ogPsMenuGraphicDisplay(int topfb) {
 			offset3D[0].level = CONFIG_3D_SLIDERSTATE * 1.0f;
 			offset3D[1].level = CONFIG_3D_SLIDERSTATE * -1.0f;
 			if (menu_cursor == 0) {
-				pp2d_draw_texture(cursorTex, 40+offset3D[topfb].level+83, 118);
+				pp2d_draw_texture_part(cursorTex, 40+offset3D[topfb].level+83, 118, 0, 0, 17, 16);
 			} else if (menu_cursor == 1) {
-				pp2d_draw_texture(cursorTex, 40+offset3D[topfb].level+83, 168);
+				pp2d_draw_texture_part(cursorTex, 40+offset3D[topfb].level+83, 168, 0, 0, 17, 16);
 			}
 		}
 	}
