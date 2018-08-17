@@ -95,5 +95,38 @@ void ogPsMenuGraphicDisplay(int topfb) {
 		offset3D[0].level = CONFIG_3D_SLIDERSTATE * -1.0f;
 		offset3D[1].level = CONFIG_3D_SLIDERSTATE * 1.0f;
 		pp2d_draw_texture(blueMainMenuTextTex, 40+offset3D[topfb].level+226, 22);
+
+		offset3D[0].level = CONFIG_3D_SLIDERSTATE * -2.0f;
+		offset3D[1].level = CONFIG_3D_SLIDERSTATE * 2.0f;
+		pp2d_draw_texture_part(inkedButtonTex, 40+offset3D[topfb].level+27, 99, 0, 0, 109, 34);
+		pp2d_draw_texture_part(inkedButtonTex, 40+offset3D[topfb].level+27, 150, 0, 34, 109, 34);
+
+		// "Memory Card" text
+		if (menu_cursor == 0) {
+			pp2d_draw_texture_part_blend(memCardCdTextTex, 40+13, 109, 0, 0, 140, 15, RGBA8(menu_textFadeColor, menu_textFadeColor, menu_textFadeColor, 255));
+		} else {
+			offset3D[0].level = CONFIG_3D_SLIDERSTATE * -1.0f;
+			offset3D[1].level = CONFIG_3D_SLIDERSTATE * 1.0f;
+			pp2d_draw_texture_part_scale(memCardCdTextTex, 40+offset3D[topfb].level+26, 110, 0, 0, 140, 15, 0.82, 0.82);
+		}
+
+		// "CD Player" text
+		if (menu_cursor == 1) {
+			pp2d_draw_texture_part_blend(memCardCdTextTex, 40+32, 159, 0, 15, 140, 15, RGBA8(menu_textFadeColor, menu_textFadeColor, menu_textFadeColor, 255));
+		} else {
+			offset3D[0].level = CONFIG_3D_SLIDERSTATE * -1.0f;
+			offset3D[1].level = CONFIG_3D_SLIDERSTATE * 1.0f;
+			pp2d_draw_texture_part_scale(memCardCdTextTex, 40+offset3D[topfb].level+42, 160, 0, 15, 140, 15, 0.82, 0.82);
+		}
+
+		if (!menu_textFade) {
+			offset3D[0].level = CONFIG_3D_SLIDERSTATE * 1.0f;
+			offset3D[1].level = CONFIG_3D_SLIDERSTATE * -1.0f;
+			if (menu_cursor == 0) {
+				pp2d_draw_texture(cursorTex, 40+offset3D[topfb].level+83, 118);
+			} else if (menu_cursor == 1) {
+				pp2d_draw_texture(cursorTex, 40+offset3D[topfb].level+83, 168);
+			}
+		}
 	}
 }

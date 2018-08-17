@@ -22,6 +22,9 @@ extern size_t psSceTextTex;
 
 extern size_t blueMenuBgTex;
 extern size_t blueMainMenuTextTex;
+extern size_t inkedButtonTex;
+extern size_t memCardCdTextTex;
+extern size_t cursorTex;
 
 extern void graphicsInit(void);
 

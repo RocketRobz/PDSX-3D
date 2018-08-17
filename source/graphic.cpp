@@ -64,6 +64,9 @@ size_t psSceTextTex = 12;
 
 size_t blueMenuBgTex = 13;
 size_t blueMainMenuTextTex = 14;
+size_t inkedButtonTex = 15;
+size_t memCardCdTextTex = 16;
+size_t cursorTex = 17;
 
 void graphicsInit(void) {
 	pp2d_load_texture_png(homeiconTex, "romfs:/graphics/vcmenu/home_icon.png");
@@ -83,4 +86,7 @@ void graphicsInit(void) {
 
 	pp2d_load_texture_png(blueMenuBgTex, "romfs:/graphics/mainmenu/bg_blue.png");
 	pp2d_load_texture_png(blueMainMenuTextTex, "romfs:/graphics/mainmenu/text_mainmenu.png");
+	pp2d_load_texture_png(inkedButtonTex, "romfs:/graphics/mainmenu/inkedbutton.png");
+	pp2d_load_texture_png(memCardCdTextTex, "romfs:/graphics/mainmenu/menutext.png");
+	pp2d_load_texture_png(cursorTex, "romfs:/graphics/mainmenu/cursor.png");
 }

@@ -94,7 +94,7 @@ int main()
 		bgm_sce = new sound("romfs:/sounds/sce.wav", 3, false);
 		bgm_playstation = new sound("romfs:/sounds/playstation.wav", 4, false);
 	}
-	
+
 	LoadSettings();
 
 	if (settings.pseudoEmulation.modeOrder == 2) {
@@ -106,13 +106,13 @@ int main()
 	int topFadeAlpha = 0;
 	int fadealpha = 255;
 	bool fadein = true;
-	
+
 	// Loop as long as the status is not exit
 	while(aptMainLoop()) {
 
 		// Scan hid shared memory for input events
 		hidScanInput();
-		
+
 		hDown = hidKeysDown();
 		hHeld = hidKeysHeld();
 

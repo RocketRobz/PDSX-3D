@@ -47,7 +47,6 @@ void psSplash(void) {
 }
 
 void psGraphicDisplay(int topfb) {
-
 	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -4.0f;
 	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 4.0f;
 	pp2d_draw_texture_part(psSTex, 40+offset3D[topfb].level+107, 82, 0, 0, 104, 6);
