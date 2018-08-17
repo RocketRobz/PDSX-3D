@@ -21,6 +21,7 @@
 
 bool dspfirmfound = false;
 
+int topFadeAlpha = 0;
 bool simulationRunning = true;
 bool vcMenuMusicPlayed = false;
 
@@ -58,10 +59,10 @@ int main()
 	mkdir("sdmc:/3ds", 0777);	// For DSP dump
 
 	pp2d_init();
-	
+
 	pp2d_set_screen_color(GFX_TOP, TRANSPARENT);
 	pp2d_set_3D(1);
-	
+
 	Result res = 0;
 
 	graphicsInit();
@@ -103,7 +104,6 @@ int main()
 		gameModeBuffer = 0;
 	}
 
-	int topFadeAlpha = 0;
 	int fadealpha = 255;
 	bool fadein = true;
 
@@ -171,25 +171,7 @@ int main()
 		}
 
 		pp2d_draw_on(GFX_BOTTOM, GFX_LEFT);
-		pp2d_draw_texture(vcMenuBgTex, 0, 0);
-		pp2d_draw_texture_flip(vcMenuBgTex, 160, 0, HORIZONTAL);
-		if (simulationRunning) {
-			const char *vc_text = "Tap the Touch Screen to go";
-			const char *vc_text2 = "to the Virtual Console menu.";
-			const int vc_width = pp2d_get_text_width(vc_text, 0.50, 0.50);
-			const int vc_width2 = pp2d_get_text_width(vc_text, 0.50, 0.50);
-			const int vc_x = (320-vc_width)/2;
-			const int vc_x2 = (320-vc_width2)/2;
-			pp2d_draw_text(vc_x, 104, 0.50, 0.50, WHITE, vc_text);
-			pp2d_draw_text(vc_x2, 118, 0.50, 0.50, WHITE, vc_text2);
-		} else if (topFadeAlpha == 191) {
-			vcMenuGraphicDisplay();
-		}
-		const char *home_text = ": Return to HOME Menu";
-		const int home_width = pp2d_get_text_width(home_text, 0.50, 0.50) + 16;
-		const int home_x = (320-home_width)/2;
-		pp2d_draw_texture(homeiconTex, home_x, 219); // Draw HOME icon
-		pp2d_draw_text(home_x+20, 220, 0.50, 0.50, WHITE, home_text);
+		vcMenuGraphicDisplay();
 		if (fadealpha > 0) pp2d_draw_rectangle(0, 0, 320, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
 		pp2d_end_draw();
 

@@ -49,29 +49,30 @@ void pp2d_draw_texture_rotate_flip_blend(size_t id, int x, int y, float angle, f
 
 size_t homeiconTex = 1;
 size_t vcMenuBgTex = 2;
-size_t vcMenuBubbleTex = 3;
-size_t psoneBorderTex = 4;
+size_t vcMenuBubbleTex[2] = {3, 4};
+size_t psoneBorderTex = 5;
 
-size_t sceTriangleTex = 5;
-size_t sceLogoTex = 6;
+size_t sceTriangleTex = 10;
+size_t sceLogoTex = 11;
 
-size_t psPTex = 7;
-size_t psSTex = 8;
-size_t psTextTex = 9;
-size_t psLicensedByTextTex = 10;
-size_t psSonyComputerEntertainmentTextTex = 11;
-size_t psSceTextTex = 12;
+size_t psPTex = 12;
+size_t psSTex = 13;
+size_t psTextTex = 14;
+size_t psLicensedByTextTex = 15;
+size_t psSonyComputerEntertainmentTextTex = 16;
+size_t psSceTextTex = 17;
 
-size_t blueMenuBgTex = 13;
-size_t blueMainMenuTextTex = 14;
-size_t inkedButtonTex = 15;
-size_t memCardCdTextTex = 16;
-size_t cursorTex = 17;
+size_t blueMenuBgTex = 18;
+size_t blueMainMenuTextTex = 19;
+size_t inkedButtonTex = 20;
+size_t memCardCdTextTex = 21;
+size_t cursorTex = 22;
 
 void graphicsInit(void) {
 	pp2d_load_texture_png(homeiconTex, "romfs:/graphics/vcmenu/home_icon.png");
 	pp2d_load_texture_png(vcMenuBgTex, "romfs:/graphics/vcmenu/bg.png");
-	pp2d_load_texture_png(vcMenuBubbleTex, "romfs:/graphics/vcmenu/Bubble 1.png");
+	pp2d_load_texture_png(vcMenuBubbleTex[0], "romfs:/graphics/vcmenu/Bubble 1.png");
+	pp2d_load_texture_png(vcMenuBubbleTex[1], "romfs:/graphics/vcmenu/Bubble 2.png");
 	pp2d_load_texture_png(psoneBorderTex, "romfs:/graphics/psone border.png");
 	
 	pp2d_load_texture_png(sceTriangleTex, "romfs:/graphics/sce/triangle.png");

@@ -7,7 +7,7 @@
 // Textures
 extern size_t homeiconTex;
 extern size_t vcMenuBgTex;
-extern size_t vcMenuBubbleTex;
+extern size_t vcMenuBubbleTex[2];
 extern size_t psoneBorderTex;
 
 extern size_t sceTriangleTex;
