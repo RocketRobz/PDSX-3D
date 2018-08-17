@@ -25,6 +25,7 @@ extern size_t blueMainMenuTextTex;
 extern size_t blueOrbsTex;
 extern size_t inkedButtonTex;
 extern size_t memCardCdTextTex;
+extern size_t gridBgTex;
 extern size_t cursorTex;
 
 extern void graphicsInit(void);

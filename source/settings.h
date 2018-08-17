@@ -21,6 +21,7 @@ typedef struct _Settings_t {
 	// TODO: Use int8_t instead of int?
 	struct {
 		int border;		// 0 = None (16:10), 1 = Left/Right black bars (4:3)
+		int bios;
 		int modeOrder;
 	} pseudoEmulation;
 } Settings_t;

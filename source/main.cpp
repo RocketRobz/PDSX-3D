@@ -15,6 +15,7 @@
 #include "scesplash.h"
 #include "pssplash.h"
 #include "ogpsmenu.h"
+#include "psonemenu.h"
 #include "vcmenu.h"
 
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
@@ -36,7 +37,7 @@ int gameModeBuffer = 0;
 
 int blackScreenDelay = 0;
 
-int psConsoleModel = 0;					// 0 = Playstation -> PS, 1 = PSone
+int psConsoleModel = 0;					// 0 = Playstation (SCPH1001) -> PS, 1 = PSone (SCPH101)
 
 u32 hDown;
 u32 hHeld;
@@ -136,7 +137,11 @@ int main()
 					psGraphicDisplay(topfb);
 					break;
 				case 2:
-					ogPsMenuGraphicDisplay(topfb);
+					if (psConsoleModel == 1) {
+						psoneMenuGraphicDisplay(topfb);
+					} else {
+						ogPsMenuGraphicDisplay(topfb);
+					}
 					break;
 			}
 			if (topFadeAlpha > 0) pp2d_draw_rectangle(0, 0, 400, 240, RGBA8(0, 0, 0, topFadeAlpha)); // Fade in/out effect
@@ -165,7 +170,11 @@ int main()
 					psSplash();
 					break;
 				case 2:
-					ogPsMenu();
+					if (psConsoleModel == 1) {
+						psoneMenu();
+					} else {
+						ogPsMenu();
+					}
 					break;
 			}
 		}

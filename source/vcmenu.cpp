@@ -8,6 +8,7 @@
 #include "scesplash.h"
 #include "pssplash.h"
 #include "ogpsmenu.h"
+#include "psonemenu.h"
 
 
 extern int topFadeAlpha;
@@ -18,7 +19,7 @@ extern int gameModeBuffer;
 
 extern int blackScreenDelay;
 
-extern int psConsoleModel;					// 0 = Playstation -> PS, 1 = PSone
+extern int psConsoleModel;					// 0 = Playstation (SCPH1001) -> PS, 1 = PSone (SCPH101)
 
 extern sound *sfx_vcmenuselect;
 extern sound *bgm_sce;
@@ -81,6 +82,7 @@ void vcMenu(void) {
 					sceInit();
 					psSplashInit();
 					ogPsMenuInit();
+					psoneMenuInit();
 					if (settings.pseudoEmulation.modeOrder == 2) {
 						gameModeBuffer = 1;
 					} else {
@@ -88,6 +90,7 @@ void vcMenu(void) {
 					}
 					blackScreenDelay = 0;
 					gameMode = -1;
+					psConsoleModel = settings.pseudoEmulation.bios;
 					simulationRunning = true;
 					vcMenu_cursorPosition[0] = 0;
 					break;
@@ -102,8 +105,8 @@ void vcMenu(void) {
 			vcMenu_cursorPosition[0] = 0;
 		}
 	} else if (vcMenu_screen == 1) {
-		if (vcMenu_cursorPosition[1] < 0) vcMenu_cursorPosition[1] = 1;
-		if (vcMenu_cursorPosition[1] > 1) vcMenu_cursorPosition[1] = 0;
+		if (vcMenu_cursorPosition[1] < 0) vcMenu_cursorPosition[1] = 2;
+		if (vcMenu_cursorPosition[1] > 2) vcMenu_cursorPosition[1] = 0;
 
 		if (hDown & KEY_A) {
 			sfx_vcmenuselect->stop();
@@ -114,12 +117,16 @@ void vcMenu(void) {
 					settings.pseudoEmulation.border++;
 					break;
 				case 1:
+					settings.pseudoEmulation.bios++;
+					break;
+				case 2:
 					settings.pseudoEmulation.modeOrder++;
 					break;
 			}
 		}
 
 		if (settings.pseudoEmulation.border > 2) settings.pseudoEmulation.border = 0;
+		if (settings.pseudoEmulation.bios > 1) settings.pseudoEmulation.bios = 0;
 		if (settings.pseudoEmulation.modeOrder > 2) settings.pseudoEmulation.modeOrder = 0;
 
 		if (hDown & KEY_B) {
@@ -157,38 +164,45 @@ void vcMenuGraphicDisplay(void) {
 		pp2d_draw_text(8, 24, 0.50, 0.50, WHITE, "by Robz8");
 
 		if (vcMenu_screen == 0) {
-			pp2d_draw_rectangle(0, 80+(vcMenu_cursorPosition[0]*32), 400, 32, RGBA8(255, 0, 0, 127));
+			pp2d_draw_rectangle(0, 72+(vcMenu_cursorPosition[0]*32), 400, 32, RGBA8(255, 0, 0, 127));
 
 			vcMenu_width = pp2d_get_text_width(vcMenu_resume, 0.75, 0.75);
 			vcMenu_x = (320-vcMenu_width)/2;
-			pp2d_draw_text(vcMenu_x, 84, 0.75, 0.75, WHITE, vcMenu_resume);
+			pp2d_draw_text(vcMenu_x, 76, 0.75, 0.75, WHITE, vcMenu_resume);
 
 			vcMenu_width = pp2d_get_text_width(vcMenu_restart, 0.75, 0.75);
 			vcMenu_x = (320-vcMenu_width)/2;
-			pp2d_draw_text(vcMenu_x, 116, 0.75, 0.75, WHITE, vcMenu_restart);
+			pp2d_draw_text(vcMenu_x, 108, 0.75, 0.75, WHITE, vcMenu_restart);
 
 			vcMenu_width = pp2d_get_text_width(vcMenu_settings, 0.75, 0.75);
 			vcMenu_x = (320-vcMenu_width)/2;
-			pp2d_draw_text(vcMenu_x, 148, 0.75, 0.75, WHITE, vcMenu_settings);
+			pp2d_draw_text(vcMenu_x, 140, 0.75, 0.75, WHITE, vcMenu_settings);
 		} else if (vcMenu_screen == 1) {
-			pp2d_draw_rectangle(0, 88+(vcMenu_cursorPosition[1]*32), 400, 32, RGBA8(255, 0, 0, 127));
+			pp2d_draw_rectangle(0, 72+(vcMenu_cursorPosition[1]*32), 400, 32, RGBA8(255, 0, 0, 127));
 
-			pp2d_draw_text(8, 92, 0.65, 0.65, WHITE, "Border");
+			pp2d_draw_text(8, 76, 0.65, 0.65, WHITE, "Border");
 			if (settings.pseudoEmulation.border == 0) {
-				pp2d_draw_text(260, 92, 0.65, 0.65, WHITE, "None");
+				pp2d_draw_text(260, 76, 0.65, 0.65, WHITE, "None");
 			} else if (settings.pseudoEmulation.border == 1) {
-				pp2d_draw_text(260, 92, 0.65, 0.65, WHITE, "Black");
+				pp2d_draw_text(260, 76, 0.65, 0.65, WHITE, "Black");
 			} else if (settings.pseudoEmulation.border == 2) {
-				pp2d_draw_text(256, 92, 0.65, 0.65, WHITE, "PSone");
+				pp2d_draw_text(256, 76, 0.65, 0.65, WHITE, "PSone");
 			}
 
-			pp2d_draw_text(8, 124, 0.65, 0.65, WHITE, "Screen order");
+			pp2d_draw_text(8, 108, 0.65, 0.65, WHITE, "BIOS");
+			if (settings.pseudoEmulation.bios == 0) {
+				pp2d_draw_text(216, 108, 0.65, 0.65, WHITE, "SCPH1001");
+			} else if (settings.pseudoEmulation.bios == 1) {
+				pp2d_draw_text(224, 108, 0.65, 0.65, WHITE, "SCPH101");
+			}
+
+			pp2d_draw_text(8, 140, 0.65, 0.65, WHITE, "Screen order");
 			if (settings.pseudoEmulation.modeOrder == 0) {
-				pp2d_draw_text(170, 124, 0.65, 0.65, WHITE, "SCE > Playstation");
+				pp2d_draw_text(170, 140, 0.65, 0.65, WHITE, "SCE > Playstation");
 			} else if (settings.pseudoEmulation.modeOrder == 1) {
-				pp2d_draw_text(170, 124, 0.65, 0.65, WHITE, "SCE > Main Menu");
+				pp2d_draw_text(170, 140, 0.65, 0.65, WHITE, "SCE > Main Menu");
 			} else if (settings.pseudoEmulation.modeOrder == 2) {
-				pp2d_draw_text(224, 124, 0.65, 0.65, WHITE, "Playstation");
+				pp2d_draw_text(224, 140, 0.65, 0.65, WHITE, "Playstation");
 			}
 		}
 	}

@@ -14,9 +14,9 @@ extern sound *bgm_sce;
 extern u32 hDown;
 extern u32 hHeld;
 
-static bool musicStopped = false;
+static bool menu_musicStopped = false;
 static int menu_musicStopWait = 0;
-static bool displayMenuGraphics = false;
+static bool menu_displayMenuGraphics = false;
 static int menu_cursor = 0;
 static bool menu_textFade = false;
 
@@ -25,9 +25,9 @@ static int menu_textFadeColor = 255;	// 0 when faded out
 extern int psConsoleModel;					// 0 = Playstation -> PS, 1 = PSone
 
 void ogPsMenuInit(void) {
-	musicStopped = false;
+	menu_musicStopped = false;
 	menu_musicStopWait = 0;
-	displayMenuGraphics = false;
+	menu_displayMenuGraphics = false;
 	menu_cursor = 0;
 	menu_textFade = false;
 
@@ -35,16 +35,16 @@ void ogPsMenuInit(void) {
 }
 
 void ogPsMenu(void) {
-	if (!musicStopped) {
+	if (!menu_musicStopped) {
 		menu_musicStopWait++;
 		if (menu_musicStopWait == 30) {
 			bgm_sce->stop();	// Stop SPE logo music
-			musicStopped = true;
-			displayMenuGraphics = true;
+			menu_musicStopped = true;
+			menu_displayMenuGraphics = true;
 		}
 	}
 	
-	if (displayMenuGraphics) {
+	if (menu_displayMenuGraphics) {
 		if (menu_textFade) {
 			menu_textFadeColor -= 10;
 			if (menu_textFadeColor < 0) {
@@ -91,7 +91,7 @@ void ogPsMenuGraphicDisplay(int topfb) {
 	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 4.0f;
 	pp2d_draw_texture_part(blueMenuBgTex, 40+offset3D[topfb].level, 34*3, 0, 34*3, 320, 34);
 
-	if (displayMenuGraphics) {
+	if (menu_displayMenuGraphics) {
 		offset3D[0].level = CONFIG_3D_SLIDERSTATE * -4.0f;
 		offset3D[1].level = CONFIG_3D_SLIDERSTATE * 4.0f;
 		pp2d_draw_texture_part(blueOrbsTex, 40+offset3D[topfb].level+120, 160, 0, 0, 60, 60);

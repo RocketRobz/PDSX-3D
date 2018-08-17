@@ -18,6 +18,7 @@ Settings_t settings;
 
 void LoadSettings(void) {
 	settings.pseudoEmulation.border = settingsini.GetInt("SETTINGS", "BORDER", 1);
+	settings.pseudoEmulation.bios = settingsini.GetInt("SETTINGS", "BIOS", 0);
 	settings.pseudoEmulation.modeOrder = settingsini.GetInt("SETTINGS", "SCREEN_ORDER", 0);
 }
 
@@ -26,6 +27,7 @@ void LoadSettings(void) {
  */
 void SaveSettings(void) {
 	settingsini.SetInt("SETTINGS", "BORDER", settings.pseudoEmulation.border);
+	settingsini.SetInt("SETTINGS", "BIOS", settings.pseudoEmulation.bios);
 	settingsini.SetInt("SETTINGS", "SCREEN_ORDER", settings.pseudoEmulation.modeOrder);
 	settingsini.SaveIniFile("sdmc:/3ds/PDSX.ini");
 }
