@@ -53,10 +53,11 @@ void psGraphicDisplay(int topfb) {
 
 	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -3.5f;
 	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 3.5f;
-	pp2d_draw_texture_part(psSTex, 40+offset3D[topfb].level+107, 82+(6), 0, 6, 104, 6);
+	pp2d_draw_texture_part(psSTex, 40+offset3D[topfb].level+107, 82+(6), 0, 6, 64, 6);
 
 	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -3.0f;
 	offset3D[1].level = CONFIG_3D_SLIDERSTATE * 3.0f;
+	pp2d_draw_texture_part(psSTex, 40+offset3D[topfb].level+107+64, 82+(6), 64, 6, 40, 6);
 	pp2d_draw_texture_part(psSTex, 40+offset3D[topfb].level+107, 82+(6*2), 0, 6*2, 104, 6);
 
 	offset3D[0].level = CONFIG_3D_SLIDERSTATE * -2.5f;
