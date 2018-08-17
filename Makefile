@@ -21,7 +21,7 @@ BANNERTOOL 	?= ../bannertool.exe
 #---------------------------------------------------------------------------------
 
 VERSION_MAJOR := 0
-VERSION_MINOR := 1
+VERSION_MINOR := 3
 VERSION_MICRO := 0
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output

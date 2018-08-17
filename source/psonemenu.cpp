@@ -20,7 +20,7 @@ static bool oneDisplayMenuGraphics = false;
 static int oneMenu_cursor = 0;
 static bool oneMenu_textFade = false;
 
-static int oneMenu_textFadeColor[2] = {255};	// 0 when faded out
+static int oneMenu_textFadeColor[2] = {255, 255};	// 0 when faded out
 
 void psoneMenuInit(void) {
 	oneMusicStopped = false;
